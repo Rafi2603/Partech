@@ -1,5 +1,6 @@
 const PTService = require('../services/services');
 
+
 async function loginUser(req,res){
     try{
         const result = await PTService.loginUser(req.body);
@@ -9,14 +10,16 @@ async function loginUser(req,res){
     }
 }
 
+
 async function loginAdmin(req,res){
     try{
-        const result = await HBService.loginAdmin(req.body);
+        const result = await PTService.loginAdmin(req.body);
         res.json(result);
     }catch(err){
         res.json(err.detail);
     }
 }
+
 
 async function registerUser(req,res){
     try{
@@ -27,32 +30,36 @@ async function registerUser(req,res){
     }
 }
 
+
 async function allUser(req,res){
     try{
-        const result = await HBService.allUser(req.user);
+        const result = await PTService.allUser(req.user);
         res.json(result);
     }catch(err){
         res.json(err);
     }
 }
 
-async function deleteUser(req,res){
-    try{
-        const result = await HBService.deleteUser(req.body);
-        res.json(result);
-    }catch(err){
-        res.json(err);
-    }
-}
 
 async function updateUser(req,res){
     try{
-        const result = await HBService.updateUser(req.body);
+        const result = await PTService.updateUser(req.body);
         res.json(result);
     }catch(err){
         res.json(err.detail);
     }
 }
+
+
+async function topup(req,res){
+    try{
+        const result = await PTService.topup(req.body);
+        res.json(result);
+    }catch(err){
+        res.json(err.detail);
+    }
+}
+
 
 module.exports = {
     loginUser,
@@ -60,5 +67,5 @@ module.exports = {
     registerUser,
     allUser,
     updateUser,
-    deleteUser
+    topup
 }

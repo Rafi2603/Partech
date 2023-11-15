@@ -10,8 +10,8 @@ router.post('/registerUser', PTController.registerUser);
 
 router.get('/allUser', PTController.allUser);
 
-router.delete('/deleteUser', PTController.deleteUser);
-
 router.put("/updateUser", PTController.updateUser);
+
+router.put("/topup", PTController.topup);
 
 module.exports = router;

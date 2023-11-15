@@ -18,8 +18,6 @@ CREATE TABLE userAccount(
 CREATE TABLE adminAccount(
     'username' VARCHAR(50) NOT NULL UNIQUE,
     'password' VARCHAR(50) NOT NULL UNIQUE,
-    'email' VARCHAR(50) NOT NULL UNIQUE,
-    'phone' VARCHAR(12) NOT NULL UNIQUE
 );
 
 CREATE TABLE ParkingLot(
