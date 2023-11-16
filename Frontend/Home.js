@@ -9,11 +9,28 @@ const Home = ({ navigation }) => {
     navigation.navigate('CameraScreen'); // Navigate to the CameraScreen
   };
 
+  const handleTopUp = () => {
+    // Add logic to handle the top-up action
+    console.log('TopUp button pressed');
+    navigation.navigate('TopUp');
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.topContainer}>
-        <Text style={styles.username}>{username}</Text>
-        <Text style={styles.balance}>Balance: Rp{balance}</Text>
+        <View style={styles.topRow}>
+          {/* Circular profile picture */}
+          <View style={styles.profilePicture}></View>
+
+          <View style={styles.userInfo}>
+            <Text style={styles.username}>{username}</Text>
+            <Text style={styles.balance}>Balance: Rp{balance}</Text>
+          </View>
+
+          <TouchableOpacity style={styles.topUpButton} onPress={handleTopUp}>
+            <Text style={styles.navButtonTextTopUp}>TopUp</Text>
+          </TouchableOpacity>
+        </View>
       </View>
 
       {/* Space in the middle */}
@@ -37,6 +54,7 @@ const Home = ({ navigation }) => {
 };
 
 export default Home;
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -51,6 +69,22 @@ const styles = StyleSheet.create({
     padding: 10, // Add padding for better appearance
     borderRadius: 5, // Add border radius for rounded corners
   },
+  topRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center', // Center vertically
+    width: '100%',
+  },
+  profilePicture: {
+    width: 40, // Adjust the size of the profile picture
+    height: 40, // Adjust the size of the profile picture
+    borderRadius: 20, // Make it a circle
+    backgroundColor: 'white', // You can set the background color or add an image source
+    marginRight: 10, // Add some space between the profile picture and the text
+  },
+  userInfo: {
+    flex: 1,
+  },
   middleSpace: {
     flex: 1,
   },
@@ -62,6 +96,16 @@ const styles = StyleSheet.create({
   balance: {
     color: 'white',
     fontSize: 12,
+  },
+  topUpButton: {
+    backgroundColor: 'white',
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    borderRadius: 10,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 30,
   },
   bottomNavbar: {
     flexDirection: 'row',
@@ -99,5 +143,10 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontWeight: 'bold',
   },
+  navButtonTextTopUp: {
+    color: 'blue',
+    textAlign: 'center',
+    fontWeight: 'bold',
+    fontSize: 12,
+  },
 });
-

@@ -5,6 +5,7 @@ import Login from './Login';
 import SignUp from './SignUp';
 import Home from './Home'; // Import the Home component
 import CameraScreen from './CameraScreen';
+import TopUp from './TopUp';
 
 const Stack = createStackNavigator();
 
@@ -36,6 +37,7 @@ const App = () => {
         <Stack.Screen name="SignUp" component={SignUp} />
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="CameraScreen" component={CameraScreen} />
+        <Stack.Screen name="TopUp" component={TopUp} />
       </Stack.Navigator>
     </NavigationContainer>
   );
