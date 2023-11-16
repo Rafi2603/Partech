@@ -5,16 +5,8 @@ const Home = ({ navigation }) => {
   const username = "Rayhan Akbar"; // Replace with actual username
   const balance = "100.000,00"; // Replace with actual balance
 
-  const checkAvailability = () => {
-    // Implement logic for "Check Availability" functionality
-  };
-
-  const parkNow = () => {
-    // Implement logic for "Park Now" functionality
-  };
-
-  const viewHistory = () => {
-    // Implement logic for "History" functionality
+  const handleParkNow = () => {
+    navigation.navigate('CameraScreen'); // Navigate to the CameraScreen
   };
 
   return (
@@ -29,13 +21,13 @@ const Home = ({ navigation }) => {
 
       <View style={styles.topContainer}>
         <View style={styles.bottomNavbar}>
-          <TouchableOpacity style={styles.navButtonBlue} onPress={checkAvailability}>
+          <TouchableOpacity style={styles.navButtonBlue}>
             <Text style={styles.navButtonTextWhite}>Check Availability</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.navButton} onPress={parkNow}>
+          <TouchableOpacity style={styles.navButton} onPress={handleParkNow}>
             <Text style={styles.navButtonText}>Park Now</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.navButtonBlue} onPress={viewHistory}>
+          <TouchableOpacity style={styles.navButtonBlue}>
             <Text style={styles.navButtonTextWhite}>History</Text>
           </TouchableOpacity>
         </View>
@@ -45,7 +37,6 @@ const Home = ({ navigation }) => {
 };
 
 export default Home;
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -102,10 +93,11 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontWeight: 'bold',
     fontSize: 18,
-  },  
+  },
   navButtonTextWhite: {
     color: 'white',
     textAlign: 'center',
     fontWeight: 'bold',
-  },  
+  },
 });
+
