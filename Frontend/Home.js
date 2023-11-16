@@ -1,81 +1,111 @@
 import React from 'react';
-import { View, Text, StyleSheet, ImageBackground, Button } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome'; // Assuming FontAwesome has a QR code icon
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
-const Home = () => {
+const Home = ({ navigation }) => {
+  const username = "Rayhan Akbar"; // Replace with actual username
+  const balance = "100.000,00"; // Replace with actual balance
+
+  const checkAvailability = () => {
+    // Implement logic for "Check Availability" functionality
+  };
+
+  const parkNow = () => {
+    // Implement logic for "Park Now" functionality
+  };
+
+  const viewHistory = () => {
+    // Implement logic for "History" functionality
+  };
+
   return (
     <View style={styles.container}>
-      <ImageBackground style={styles.background}>
-        <View style={styles.topContainer}>
-          <Text style={styles.username}>Username</Text>
-          <Text style={styles.balance}>Balance</Text>
+      <View style={styles.topContainer}>
+        <Text style={styles.username}>{username}</Text>
+        <Text style={styles.balance}>Balance: Rp{balance}</Text>
+      </View>
+
+      {/* Space in the middle */}
+      <View style={styles.middleSpace}></View>
+
+      <View style={styles.topContainer}>
+        <View style={styles.bottomNavbar}>
+          <TouchableOpacity style={styles.navButtonBlue} onPress={checkAvailability}>
+            <Text style={styles.navButtonTextWhite}>Check Availability</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.navButton} onPress={parkNow}>
+            <Text style={styles.navButtonText}>Park Now</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.navButtonBlue} onPress={viewHistory}>
+            <Text style={styles.navButtonTextWhite}>History</Text>
+          </TouchableOpacity>
         </View>
-        <View style={styles.middleContainer}>
-          <Text style={styles.greeting}>Hi Username!</Text>
-          <Text style={styles.smiley}>😊</Text>
-          <Text style={styles.noVehicle}>You don't have a parked vehicle</Text>
-          <Icon name="qrcode" size={50} color="white" style={styles.qrCode} />
-        </View>
-        <View style={styles.bottomContainer}>
-          <Button title="Check Availability" color="#f194ff" />
-          <Button title="Park Now" color="#f194ff" />
-        </View>
-      </ImageBackground>
+      </View>
     </View>
   );
 };
 
+export default Home;
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: "column"
-  },
-  background: {
-    flex: 1,
     backgroundColor: 'black',
-    justifyContent: "center",
-    alignItems: "center"
+    alignItems: 'left',
+    justifyContent: 'left',
   },
   topContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '80%',
-    marginBottom: 20,
+    flexDirection: 'column',
+    alignItems: 'flex-start', // Align items to the left
+    backgroundColor: 'blue', // Set the background color to blue
+    padding: 10, // Add padding for better appearance
+    borderRadius: 5, // Add border radius for rounded corners
+  },
+  middleSpace: {
+    flex: 1,
   },
   username: {
     color: 'white',
-    fontSize: 16,
+    fontSize: 18,
+    fontWeight: 'bold',
   },
   balance: {
     color: 'white',
-    fontSize: 16,
+    fontSize: 12,
   },
-  middleContainer: {
+  bottomNavbar: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginBottom: 20,
+    width: '100%',
+  },
+  navButton: {
+    backgroundColor: 'white',
+    paddingVertical: 2, // Adjust the vertical padding to reduce height
+    paddingHorizontal: 2, // Adjust the horizontal padding to reduce length
+    borderRadius: 100, // Adjust the border radius for a slightly rounded look
+    flex: 1,
+    display: 'flex',
     alignItems: 'center',
+    justifyContent: 'center',
   },
-  greeting: {
+  navButtonBlue: {
+    backgroundColor: 'blue',
+    padding: 10,
+    borderRadius: 5,
+    width: '30%',
+    display: 'flex',
+    alignItems: 'center', // Center vertically
+    justifyContent: 'center',
+  },
+  navButtonText: {
+    color: 'blue',
+    textAlign: 'center',
+    fontWeight: 'bold',
+    fontSize: 18,
+  },  
+  navButtonTextWhite: {
     color: 'white',
-    fontSize: 20,
-    marginBottom: 10,
-  },
-  smiley: {
-    fontSize: 40,
-    marginBottom: 10,
-  },
-  noVehicle: {
-    color: 'white',
-    fontSize: 16,
-    marginBottom: 10,
-  },
-  qrCode: {
-    width: 100,
-    height: 100,
-    resizeMode: 'contain',
-    color: 'white',
-  },
-  bottomContainer: {
-    marginTop: 20,
-  },
+    textAlign: 'center',
+    fontWeight: 'bold',
+  },  
 });
-
-export default Home;
