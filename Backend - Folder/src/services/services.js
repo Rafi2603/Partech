@@ -57,6 +57,39 @@ async function registerUser (pp){
     }
 }
 
+async function allUser() {
+    const query = 'SELECT * FROM useraccount';
+    const result = await db.query(query);
+  
+    if (result.rowCount > 0) {
+      return {
+        message: 'Accounts found',
+        accounts: result.rows,
+      };
+    } else {
+      return {
+        message: 'No Accounts found',
+      };
+    }
+}
+
+async function selectuser(pp) {
+    const{userid} = pp
+    const query = `SELECT * FROM useraccount WHERE userid='${userid}'`;
+    const result = await db.query(query);
+  
+    if (result.rowCount > 0) {
+      return {
+        message: 'Accounts found',
+        accounts: result.rows,
+      };
+    } else {
+      return {
+        message: 'No Accounts found',
+      };
+    }
+}
+
 
 async function topup (pp){
     const { username, balance } = pp;
@@ -75,5 +108,7 @@ module.exports = {
     loginUser,
     loginAdmin,
     registerUser,
+    allUser,
+    selectuser,
     topup
 }

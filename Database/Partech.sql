@@ -6,6 +6,7 @@ CREATE TYPE gender AS ENUM (
 
 -- 
 CREATE TABLE userAccount(
+    'userID' SERIAL NOT NULL UNIQUE PRIMARY KEY,
     'username' VARCHAR(50) NOT NULL UNIQUE,
     'password' TEXT NOT NULL UNIQUE,
     'email' VARCHAR(50) NOT NULL UNIQUE,
@@ -21,8 +22,8 @@ CREATE TABLE adminAccount(
 );
 
 CREATE TABLE ParkingLot(
-    'user.id' INTEGER NOT NULL UNIQUE,
-    'isused' BOOLEAN NOT NULL UNIQUE,
+    'parkID' SERIAL NOT NULL UNIQUE,
+    'userID' SERIAL NOT NULL UNIQUE FOREIGN KEY,
     'qr_code' VARCHAR(100) NOT NULL UNIQUE,
     'islocked' BOOLEAN NOT NULL UNIQUE
 );

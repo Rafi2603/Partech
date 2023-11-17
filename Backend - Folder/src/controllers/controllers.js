@@ -40,6 +40,15 @@ async function allUser(req,res){
     }
 }
 
+async function selectuser(req,res){
+    try{
+        const result = await PTService.selectuser(req.body);
+        res.json(result);
+    }catch(err){
+        res.json(err);
+    }
+}
+
 
 async function updateUser(req,res){
     try{
@@ -66,6 +75,7 @@ module.exports = {
     loginAdmin,
     registerUser,
     allUser,
+    selectuser,
     updateUser,
     topup
 }
