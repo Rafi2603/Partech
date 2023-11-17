@@ -61,6 +61,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
     alignItems: 'left',
     justifyContent: 'left',
+    marginTop: 35,
   },
   topContainer: {
     flexDirection: 'column',

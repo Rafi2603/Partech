@@ -33,11 +33,21 @@ const App = () => {
           },
         }}
       >
-        <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="SignUp" component={SignUp} />
-        <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="CameraScreen" component={CameraScreen} />
-        <Stack.Screen name="TopUp" component={TopUp} />
+        <Stack.Screen name="Login" component={Login} options={{
+          headerShown: false,
+        }}/>
+        <Stack.Screen name="SignUp" component={SignUp} options={{
+          headerShown: false,
+        }}/>
+        <Stack.Screen name="Home" component={Home} options={{
+          headerShown: false,
+        }}/>
+        <Stack.Screen name="CameraScreen" component={CameraScreen} options={{
+          headerShown: false,
+        }}/>
+        <Stack.Screen name="TopUp" component={TopUp} options={{
+          headerShown: false,
+        }}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
