@@ -84,7 +84,7 @@ const CameraScreen = ({ navigation }) => {
   );
 };
 
-const squareSize = 200; // Adjust the size of the square overlay as needed
+const squareSize = 150; // Adjust the size of the square overlay as needed
 
 const styles = StyleSheet.create({
   container: {

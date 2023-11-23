@@ -21,13 +21,13 @@ const TopUp = () => {
 
       <View style={styles.middleSpace}>
         <View style={styles.informationContainer}>
-          <Text style={styles.userInfoText}>Username: {username}</Text>
-          <Text style={styles.userInfoText}>Phone Number: {phoneNumber}</Text>
-          <Text style={styles.userInfoText}>Current Balance: Rp{currentBalance}</Text>
+          <Text style={styles.displayText}>Username: </Text>
+          <Text style={styles.informationText}>{username}</Text>
+          <Text style={styles.displayText}>Phone Number: </Text>
+          <Text style={styles.informationText}>{phoneNumber}</Text>
+          <Text style={styles.userInfoText}>Current Balance: </Text>
+          <Text style={styles.informationText}>Rp{currentBalance}</Text>
         </View>
-      </View>
-
-      <View style={styles.topContainer}>
         <View style={styles.amountInputContainer}>
           <TextInput
             style={styles.amountInput}
@@ -39,6 +39,10 @@ const TopUp = () => {
         <TouchableOpacity style={styles.confirmButton} onPress={handleConfirmTopUp}>
           <Text style={styles.confirmButtonText}>Confirm Top Up</Text>
         </TouchableOpacity>
+      </View>
+
+      <View style={styles.topContainer}>
+        
       </View>
     </View>
   );
@@ -52,17 +56,19 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
     alignItems: 'left',
     justifyContent: 'left',
+    marginTop: 35,
   },
   topContainer: {
     flexDirection: 'column',
-    alignItems: 'stretch', // Adjusted to stretch from left to right
-    backgroundColor: 'blue', // Set the background color to blue
-    padding: 10, // Add padding for better appearance
-    borderRadius: 5, // Add border radius for rounded corners
+    alignItems: 'stretch',
+    backgroundColor: 'blue',
+    padding: 10,
+    borderRadius: 5,
   },
   informationContainer: {
     marginBottom: 20,
-    alignItems: 'center',
+    marginLeft: 10, // Add left margin
+    alignItems: 'left',
   },
   topRow: {
     flexDirection: 'row',
@@ -77,11 +83,22 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 24,
     fontWeight: 'bold',
-    alignSelf: 'flex-start', // Align title to the left
+    alignSelf: 'flex-start',
   },
   userInfoContainer: {
     marginTop: 20,
     alignItems: 'center',
+  },
+  displayText:{
+    color: 'white',
+    fontSize: 20,
+    marginTop: 8,
+  },
+  informationText:{
+    color: 'white',
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginTop: 2,
   },
   userInfoText: {
     color: 'white',
