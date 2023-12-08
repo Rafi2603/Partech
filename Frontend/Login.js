@@ -1,12 +1,38 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import axios from 'axios';
 
 const Login = ({ navigation }) => {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  // const username = 'rafi';
+  // const password = '12345678';
   const goToSignUp = () => {
     navigation.navigate('SignUp');
   };
   const goToHome = () => {
     navigation.navigate('Home');
+  };
+  const handleLogin = async () => {
+    try {
+      // Make a POST request to the backend login endpoint
+      console.log("response.data");
+      const response = await axios.post('http://192.168.101.37:5000/loginuser', {
+        username,
+        password,
+      });
+      console.log("response.data");
+      // Handle the response from the backend
+      if (response.data.message === 'Login Success') {
+        // Navigate to the Home screen upon successful login
+        navigation.navigate('Home');
+      } else {
+        // Display an error message for unsuccessful login
+        alert(response.data.message);
+      }
+    } catch (error) {
+      console.error('Error during login:', error);
+    }
   };
 
   return (
@@ -18,16 +44,18 @@ const Login = ({ navigation }) => {
         <TextInput
           style={styles.input}
           placeholder="Username"
+          onChangeText={(text) => setUsername(text)}
           placeholderTextColor="white" // Set placeholder text color to white
         />
         <TextInput
           style={styles.input}
           placeholder="Password"
+          onChangeText={(text) => setPassword(text)}
           placeholderTextColor="white" // Set placeholder text color to white
           secureTextEntry={true}
         />
       </View>
-      <TouchableOpacity style={styles.button} onPress={goToHome}>
+      <TouchableOpacity style={styles.button} onPress={handleLogin}>
         <Text style={styles.buttonText}>Log In</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.signupContainer} onPress={goToSignUp}>
