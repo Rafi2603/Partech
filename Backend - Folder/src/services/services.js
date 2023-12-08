@@ -11,7 +11,7 @@ async function loginUser(pp) {
         const user = result.rows[0];
         const comparePass = await helper.comparePassword(password, user.password);
         if (comparePass) {
-          return { message: 'Login Success'};
+          return { message: 'Login Success', user};
         } else {
           return { message: 'Wrong Password' };
         }
@@ -29,7 +29,7 @@ async function loginAdmin(pp) {
         const user = result.rows[0];
         //const comparePass = await helper.comparePassword(password, user.password);
         if (user.password == password) {
-          return { message: 'Login Admin Success' };
+          return { message: 'Login Admin Success', user};
         } else {
           return { message: 'Wrong Password' };
         }
@@ -92,8 +92,8 @@ async function selectuser(pp) {
 
 
 async function topup (pp){
-    const { username, balance } = pp;
-    const query = `UPDATE useraccount SET balance = balance + ${balance}  WHERE username = '${username}'`;
+    const { userid, balance } = pp;
+    const query = `UPDATE useraccount SET balance = balance + ${balance}  WHERE userid = '${userid}'`;
     console.log(query);
     const result = await db.query(query);
     if (result.rowCount > 0) {
@@ -103,6 +103,32 @@ async function topup (pp){
     }
 }
 
+async function parklock (pp){
+  const { parkid, userid } = pp;
+  const query = `INSERT INTO parklock (parkid, userid) VALUES (${parkid}, ${userid})`;
+  console.log(query);
+  const result = await db.query(query);
+  if (result.rowCount > 0) {
+      return{ message: 'Park lock Success' };
+  } else {
+      return { message: 'Park lock Failed' };
+  }
+}
+
+async function parkunlock (pp){
+  const { parkid } = pp;
+  const query = `UPDATE parklock SET endtime = timezone('Asia/Jakarta'::text, CURRENT_TIMESTAMP) WHERE parkid = '${parkid}'`;
+  console.log(query);
+  const result = await db.query(query);
+  if (result.rowCount > 0) {
+      return{ message: 'Park Unlock Success' };
+  } else {
+      return { message: 'Park Unlock Failed' };
+  }
+}
+
+
+
 
 module.exports = {
     loginUser,
@@ -110,5 +136,7 @@ module.exports = {
     registerUser,
     allUser,
     selectuser,
-    topup
+    topup,
+    parklock,
+    parkunlock
 }

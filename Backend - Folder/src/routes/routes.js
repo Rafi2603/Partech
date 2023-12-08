@@ -16,4 +16,8 @@ router.put("/updateUser", PTController.updateUser);
 
 router.put("/topup", PTController.topup);
 
+router.post("/parklock", PTController.parklock);
+
+router.put("/parkunlock", PTController.parkunlock);
+
 module.exports = router;

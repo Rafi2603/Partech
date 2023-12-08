@@ -69,6 +69,23 @@ async function topup(req,res){
     }
 }
 
+async function parklock(req,res){
+    try{
+        const result = await PTService.parklock(req.body);
+        res.json(result);
+    }catch(err){
+        res.json(err.detail);
+    }
+}
+
+async function parkunlock(req,res){
+    try{
+        const result = await PTService.parkunlock(req.body);
+        res.json(result);
+    }catch(err){
+        res.json(err.detail);
+    }
+}
 
 module.exports = {
     loginUser,
@@ -77,5 +94,7 @@ module.exports = {
     allUser,
     selectuser,
     updateUser,
-    topup
+    topup,
+    parklock,
+    parkunlock
 }
