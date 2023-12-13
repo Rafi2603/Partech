@@ -4,20 +4,20 @@ const helper = require('../utils/helper');
 
 
 async function loginUser(pp) {
-    const { username, password } = pp;
-    const query = `SELECT * FROM useraccount WHERE username = '${username}'`;
-    const result = await db.query(query);
-    if (result.rowCount > 0) {
-        const user = result.rows[0];
-        const comparePass = await helper.comparePassword(password, user.password);
-        if (comparePass) {
-          return { message: 'Login Success'};
-        } else {
-          return { message: 'Wrong Password' };
-        }
-    } else {
-        return { message: 'Account not found' };
-    }
+  const { username, password } = pp;
+  const query = `SELECT * FROM useraccount WHERE username = '${username}'`;
+  const result = await db.query(query);
+  if (result.rowCount > 0) {
+      const user = result.rows[0];
+      const comparePass = await helper.comparePassword(password, user.password);
+      if (comparePass) {
+        return { message: 'Login Success', user};
+      } else {
+        return { message: 'Wrong Password' };
+      }
+  } else {
+      return { message: 'Account not found' };
+  }
 }
 
 
@@ -90,17 +90,21 @@ async function selectuser(pp) {
     }
 }
 
+async function topup(pp) {
+  const { userid, balance } = pp;
+  const query = `UPDATE useraccount SET balance = balance + ${balance}  WHERE userid = '${userid}'`;
+  console.log(query);
+  const result = await db.query(query);
 
-async function topup (pp){
-    const { username, balance } = pp;
-    const query = `UPDATE useraccount SET balance = balance + ${balance}  WHERE username = '${username}'`;
-    console.log(query);
-    const result = await db.query(query);
-    if (result.rowCount > 0) {
-        return{ message: 'TopUp Success' };
-    } else {
-        return { message: 'TopUp Failed' };
-    }
+  if (result.rowCount > 0) {
+    const updatedBalanceQuery = `SELECT balance FROM useraccount WHERE userid = '${userid}'`;
+    const updatedBalanceResult = await db.query(updatedBalanceQuery);
+    const currentBalance = updatedBalanceResult.rows[0].balance;
+
+    return { message: 'TopUp Success', currentBalance };
+  } else {
+    return { message: 'TopUp Failed' };
+  }
 }
 
 

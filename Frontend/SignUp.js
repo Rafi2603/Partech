@@ -1,37 +1,32 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import axios from 'axios';
 
 const SignUp = ({ navigation }) => {
-  const [username, setUsername] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const { userid, username, phone, email, password } = route.params;
 
-  const handleSignUp = () => {
-    if (!isValidUsername(username)) {
-      console.log('Invalid username. Please enter a valid username.');
-      return;
-    }
-  
-    if (!isValidPhoneNumber(phoneNumber)) {
-      console.log('Invalid phone number. Please enter a valid phone number.');
-      return;
-    }
-    
-    if (!isValidEmail(email)) {
-      console.log('Invalid email. Please enter a valid email address.');
-      return;
-    }
+  const handleSignUp = async () => {
+    try {
+      if (!isValidUsername(username) || !isValidPhoneNumber(phoneNumber) || !isValidEmail(email) || !isValidPassword(password)) {
+        console.log('Invalid input. Please check your input fields.');
+        return;
+      }
 
-    if (!isValidPassword(password)) {
-      console.log('Invalid password. Password must be 6-20 characters and contain at least one digit, one lowercase letter, and one uppercase letter.');
-      return;
+      const response = await axios.post('http://192.168.101.38/registeruser', {
+        username,
+        phoneNumber,
+        email,
+        password,
+      });
+
+      if (response.data.message === 'Registration Success') {
+        navigation.navigate('Login');
+      } else {
+        alert(response.data.message);
+      }
+    } catch (error) {
+      console.error('Error during registration:', error);
     }
-  
-    console.log('Signing up:', { username, phoneNumber, email, password });
-  
-    // Add your SignUp logic here, such as making an API call or updating state
-    navigation.navigate('Login');
   };
 
   const goToLogin = () => {
@@ -39,11 +34,8 @@ const SignUp = ({ navigation }) => {
   };
 
   const isValidUsername = (input) => /^[a-zA-Z0-9_]{3,20}$/.test(input);
-
   const isValidPhoneNumber = (input) => /^\d{10}$/.test(input);
-
   const isValidEmail = (input) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input);
-
   const isValidPassword = (input) => /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/.test(input);
 
   return (
@@ -101,7 +93,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 35,
   },
   logoContainer: {
     alignItems: 'center',

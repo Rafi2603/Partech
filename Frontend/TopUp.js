@@ -1,14 +1,51 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, TextInput, StyleSheet } from 'react-native';
+import axios from 'axios';
 
-const TopUp = () => {
-  const username = "Rayhan Akbar"; // Replace with actual username
-  const phoneNumber = "08123456789"
-  const currentBalance = "100.000,00"; // Replace with actual balance
+const TopUp = ({ route, navigation }) => {
+  const { username, email, phone, balance, userid } = route.params;
+  const [currentBalance, setCurrentBalance] = useState(balance);
+  const [amount, setAmount] = useState("");
 
-  const handleConfirmTopUp = () => {
-    // Add logic to handle the top-up confirmation
-    console.log('Confirm TopUp button pressed');
+  const handleConfirmTopUp = async () => {
+    try {
+      const numericAmount = parseInt(amount.replace(',', '')); // Use parseFloat for decimal values
+      if (isNaN(numericAmount) || numericAmount <= 0) {
+        alert("Please enter a valid positive amount.");
+        return;
+      }
+
+      const response = await axios.put('http://192.168.101.38:5000/topup', {
+        userid,
+        balance: numericAmount,
+      });
+
+      if (response.data.message === 'TopUp Success') {
+        setCurrentBalance(response.data.balance); // Update the balance with the response from the backend
+        alert('Top-up successful!');
+        navigation.navigate('Home', {
+          username,
+          userid,
+          email,
+          phone,
+          balance: response.data.currentBalance, // Pass the updated balance to the Home screen
+        });
+      } else {
+        alert('Top-up failed. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error during top-up:', error);
+    }
+  };
+
+  const goToHome = () => {
+    navigation.navigate('Home', {
+      username,
+      userid,
+      email,
+      phone,
+      balance: balance, // Pass the current balance to the Home screen
+    });
   };
 
   return (
@@ -23,8 +60,10 @@ const TopUp = () => {
         <View style={styles.informationContainer}>
           <Text style={styles.displayText}>Username: </Text>
           <Text style={styles.informationText}>{username}</Text>
+          <Text style={styles.displayText}>Email: </Text>
+          <Text style={styles.informationText}>{email}</Text>
           <Text style={styles.displayText}>Phone Number: </Text>
-          <Text style={styles.informationText}>{phoneNumber}</Text>
+          <Text style={styles.informationText}>{phone}</Text>
           <Text style={styles.userInfoText}>Current Balance: </Text>
           <Text style={styles.informationText}>Rp{currentBalance}</Text>
         </View>
@@ -33,6 +72,7 @@ const TopUp = () => {
             style={styles.amountInput}
             placeholder="Enter amount"
             keyboardType="numeric"
+            onChangeText={(text) => setAmount(text)}
           />
         </View>
 
@@ -42,7 +82,9 @@ const TopUp = () => {
       </View>
 
       <View style={styles.topContainer}>
-        
+        <TouchableOpacity style={styles.homeButton} onPress={goToHome}>
+          <Text style={styles.homeButtonText}>Back to Home</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -103,25 +145,42 @@ const styles = StyleSheet.create({
   userInfoText: {
     color: 'white',
     fontSize: 16,
+    marginBottom: 5,
   },
   amountInputContainer: {
     backgroundColor: 'white',
     borderRadius: 10,
     marginVertical: 20,
     width: '80%',
+    marginLeft: 10,
   },
   amountInput: {
     paddingHorizontal: 10,
     fontSize: 16,
+    height: 40,
   },
   confirmButton: {
     backgroundColor: 'blue',
     paddingVertical: 10,
     borderRadius: 10,
-    width: '80%',
+    width: '40%',
     alignItems: 'center',
+    marginLeft: 10,
   },
   confirmButtonText: {
+    color: 'white',
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  homeButton: {
+    backgroundColor: 'blue',
+    paddingVertical: 10,
+    borderRadius: 10,
+    width: '40%',
+    alignItems: 'center',
+    marginTop: 20,
+  },
+  homeButtonText: {
     color: 'white',
     fontSize: 18,
     fontWeight: 'bold',

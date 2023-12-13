@@ -16,16 +16,20 @@ const Login = ({ navigation }) => {
   const handleLogin = async () => {
     try {
       // Make a POST request to the backend login endpoint
-      console.log("response.data");
-      const response = await axios.post('http://192.168.101.37:5000/loginuser', {
+      const response = await axios.post('http://192.168.101.38:5000/loginuser', {
         username,
         password,
       });
-      console.log("response.data");
       // Handle the response from the backend
       if (response.data.message === 'Login Success') {
-        // Navigate to the Home screen upon successful login
-        navigation.navigate('Home');
+        // Pass user data to the Home screen upon successful login
+        navigation.navigate('Home', {
+          userID: response.data.user.userid,
+          username: response.data.user.username,
+          balance: response.data.user.balance,
+          email: response.data.user.email,
+          phone: response.data.user.phone,
+        });
       } else {
         // Display an error message for unsuccessful login
         alert(response.data.message);
