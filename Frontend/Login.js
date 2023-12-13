@@ -21,14 +21,16 @@ const Login = ({ navigation }) => {
         password,
       });
       // Handle the response from the backend
+      // Handle the response from the backend
       if (response.data.message === 'Login Success') {
         // Pass user data to the Home screen upon successful login
+        const { userid, username, balance, email, phone } = response.data.user;
         navigation.navigate('Home', {
-          userID: response.data.user.userid,
-          username: response.data.user.username,
-          balance: response.data.user.balance,
-          email: response.data.user.email,
-          phone: response.data.user.phone,
+            userID: userid,
+            username: username,
+            balance: balance,
+            email: email,
+            phone: phone,
         });
       } else {
         // Display an error message for unsuccessful login

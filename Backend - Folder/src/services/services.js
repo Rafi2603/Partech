@@ -4,22 +4,21 @@ const helper = require('../utils/helper');
 
 
 async function loginUser(pp) {
-    const { username, password } = pp;
-    const query = `SELECT * FROM useraccount WHERE username = '${username}'`;
-    const result = await db.query(query);
-    if (result.rowCount > 0) {
-        const user = result.rows[0];
-        const comparePass = await helper.comparePassword(password, user.password);
-        if (comparePass) {
-          return { message: 'Login Success'};
-        } else {
+  const { username, password } = pp;
+  const query = `SELECT * FROM useraccount WHERE username = '${username}'`;
+  const result = await db.query(query);
+  if (result.rowCount > 0) {
+      const user = result.rows[0];
+      const comparePass = await helper.comparePassword(password, user.password);
+      if (comparePass) {
+          return { message: 'Login Success', user: user };
+      } else {
           return { message: 'Wrong Password' };
-        }
-    } else {
-        return { message: 'Account not found' };
-    }
+      }
+  } else {
+      return { message: 'Account not found' };
+  }
 }
-
 
 async function loginAdmin(pp) {
     const { username, password } = pp;
