@@ -15,7 +15,7 @@ const TopUp = ({ route, navigation }) => {
         return;
       }
 
-      const response = await axios.put('http://192.168.101.38:5000/topup', {
+      const response = await axios.put('http://192.168.75.50:5000/topup', {
         userid,
         balance: numericAmount,
       });
@@ -45,6 +45,7 @@ const TopUp = ({ route, navigation }) => {
       email,
       phone,
       balance: balance, // Pass the current balance to the Home screen
+      status,
     });
   };
 

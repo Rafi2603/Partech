@@ -10,8 +10,8 @@
 
 int servoPin = 33;
 
-char ssid[] = "POCO X3 Pro"; // Nama wifi
-char pass[] = "ESP32TEST"; // Password
+char ssid[] = "H&"; // Nama wifi
+char pass[] = "1sampe8ya"; // Password
 Servo myservo;  // create servo object to control a servo
 int pos = 0;    // variable to store the servo position
 bool isLocked = false;

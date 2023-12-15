@@ -1,24 +1,30 @@
 import React, { useState } from 'react';
+import { useRoute } from '@react-navigation/native';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import axios from 'axios';
 
 const SignUp = ({ navigation }) => {
-  const { userid, username, phone, email, password } = route.params;
+  const route = useRoute();  // Fix the typo here
+  const [username, setUsername] = useState("");
+  const [phone, setphone] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleSignUp = async () => {
     try {
-      if (!isValidUsername(username) || !isValidPhoneNumber(phoneNumber) || !isValidEmail(email) || !isValidPassword(password)) {
+      if (! isValidUsername(username) || !isValidphone(phone) || !isValidEmail(email) || !isValidPassword(password)) {
         console.log('Invalid input. Please check your input fields.');
         return;
       }
 
-      const response = await axios.post('http://192.168.101.38/registeruser', {
+      const response = await axios.post('http://192.168.75.50:5000/registeruser', {
         username,
-        phoneNumber,
-        email,
         password,
+        email,
+        phone,
       });
-
+      console.log(response.data); // Add this line
+      console.log(phone); // Add this line
       if (response.data.message === 'Registration Success') {
         navigation.navigate('Login');
       } else {
@@ -33,10 +39,10 @@ const SignUp = ({ navigation }) => {
     navigation.navigate('Login');
   };
 
-  const isValidUsername = (input) => /^[a-zA-Z0-9_]{3,20}$/.test(input);
-  const isValidPhoneNumber = (input) => /^\d{10}$/.test(input);
-  const isValidEmail = (input) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input);
-  const isValidPassword = (input) => /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/.test(input);
+   const isValidUsername = (input) => /^[a-zA-Z0-9_]{3,20}$/.test(input);
+   const isValidphone = (input) => /^\d{10}$/.test(input);
+   const isValidEmail = (input) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input);
+   const isValidPassword = (input) => /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/.test(input);
 
   return (
     <View style={styles.container}>
@@ -55,9 +61,8 @@ const SignUp = ({ navigation }) => {
           style={styles.input}
           placeholder="Phone Number"
           placeholderTextColor="white"
-          value={phoneNumber}
-          onChangeText={(text) => setPhoneNumber(text)}
-          keyboardType="numeric"
+          value={phone}
+          onChangeText={(text) => setphone(text)}
         />
         <TextInput
           style={styles.input}

@@ -39,22 +39,23 @@ async function loginAdmin(pp) {
 
 
 async function registerUser (pp){
-    const { username, password, email, gender, phone, balance } = pp;
-    const pass = await helper.hashPassword(password);
-    const query = `INSERT INTO userAccount (username, password, email, gender, phone, balance) VALUES ('${username}', '${pass}', '${email}', '${gender}', '${phone}',0)`;
-    const result = await db.query(query);
-    if(result.rowCount === 1){
-        console.log(query)
-        return {
-            message: 'Account Created'
-        }
-    }else{
-        console.log(query)
-        return{
-            message: 'Entry All the Data Required'
-        } 
-    }
+  const { username, password, email, gender, phone, balance, status } = pp;
+  const pass = await helper.hashPassword(password);
+  const query = `INSERT INTO userAccount (username, password, email, phone, balance, status) VALUES ('${username}', '${pass}', '${email}', '${phone}',0, false)`;
+  const result = await db.query(query);
+  if(result.rowCount === 1){
+      console.log(query)
+      return {
+          message: 'Account Created'
+      }
+  }else{
+      console.log(query)
+      return{
+          message: 'Entry All the Data Required'
+      } 
+  }
 }
+
 
 async function allUser() {
     const query = 'SELECT * FROM useraccount';

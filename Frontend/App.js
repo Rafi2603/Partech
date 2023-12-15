@@ -6,6 +6,7 @@ import SignUp from './SignUp';
 import Home from './Home'; // Import the Home component
 import CameraScreen from './CameraScreen';
 import TopUp from './TopUp';
+import History from './History';
 
 const Stack = createStackNavigator();
 
@@ -33,21 +34,12 @@ const App = () => {
           },
         }}
       >
-        <Stack.Screen name="Login" component={Login} options={{
-          headerShown: false,
-        }}/>
-        <Stack.Screen name="SignUp" component={SignUp} options={{
-          headerShown: false,
-        }}/>
-        <Stack.Screen name="Home" component={Home} options={{
-          headerShown: false,
-        }}/>
-        <Stack.Screen name="CameraScreen" component={CameraScreen} options={{
-          headerShown: false,
-        }}/>
-        <Stack.Screen name="TopUp" component={TopUp} options={{
-          headerShown: false,
-        }}/>
+        <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
+        <Stack.Screen name="SignUp" component={SignUp} options={{ headerShown: false }} />
+        <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
+        <Stack.Screen name="CameraScreen" component={CameraScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="TopUp" component={TopUp} options={{ headerShown: false }} />
+        <Stack.Screen name="History" component={History} options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>
   );
