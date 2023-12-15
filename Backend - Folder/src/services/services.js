@@ -39,6 +39,7 @@ async function loginAdmin(pp) {
 
 
 async function registerUser (pp){
+<<<<<<< HEAD
   const { username, password, email, gender, phone, balance, status } = pp;
   const pass = await helper.hashPassword(password);
   const query = `INSERT INTO userAccount (username, password, email, phone, balance, status) VALUES ('${username}', '${pass}', '${email}', '${phone}',0, false)`;
@@ -54,6 +55,23 @@ async function registerUser (pp){
           message: 'Entry All the Data Required'
       } 
   }
+=======
+    const { username, password, email, gender, phone, balance, status } = pp;
+    const pass = await helper.hashPassword(password);
+    const query = `INSERT INTO userAccount (username, password, email, gender, phone, balance, status) VALUES ('${username}', '${pass}', '${email}', '${gender}', '${phone}',0, false)`;
+    const result = await db.query(query);
+    if(result.rowCount === 1){
+        console.log(query)
+        return {
+            message: 'Account Created'
+        }
+    }else{
+        console.log(query)
+        return{
+            message: 'Entry All the Data Required'
+        } 
+    }
+>>>>>>> f02f4b1ca2b476cbf98d10ba038b2931afa17727
 }
 
 
@@ -112,10 +130,18 @@ async function topup(pp) {
 async function parklock (pp){
   const { parkid, userid } = pp;
   const query = `INSERT INTO parklock (parkid, userid) VALUES (${parkid}, ${userid})`;
+  const query2 = `UPDATE useraccount SET status = 'true' WHERE userid = '${userid}'`;
   console.log(query);
   const result = await db.query(query);
   if (result.rowCount > 0) {
+    
+    const result2 = await db.query(query2);
+    if (result2.rowCount > 0){
       return{ message: 'Park lock Success' };
+    } else {
+      return { message: 'Account Status Update Failed' };
+    }
+      
   } else {
       return { message: 'Park lock Failed' };
   }
